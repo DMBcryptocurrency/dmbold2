@@ -35,7 +35,7 @@ In the Console window bottom field, type getaccountaddress mn1 and copy the resu
 This is your MASTERNODE DEPOSIT ADDRESS, where you will deposit the coins to create a masternode. Pay exactly 100k DMB to this address. No more, no less.
 You need 15 confirmations on your valid tx to start your masternode.
 
-In the Console Debug window enter ìmasternode genkeyî and copy the result to your notepad.
+In the Console Debug window enter ‚Äúmasternode genkey‚Äù and copy the result to your notepad.
 This is your MASTERNODE PRIVKEY. 
 
 Now we need to find the Valid transaction proof:  
