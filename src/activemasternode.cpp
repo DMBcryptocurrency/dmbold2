@@ -9,7 +9,7 @@
 #include "clientversion.h"
 
 //
-// Bootup the masternode, look for a 10000 DMB input and register on the network
+// Bootup the masternode, look for a 100000 DMB input and register on the network
 //
 void CActiveMasternode::ManageStatus()
 {
@@ -23,6 +23,7 @@ void CActiveMasternode::ManageStatus()
     bool fIsInitialDownload = IsInitialBlockDownload();
     if(fIsInitialDownload) {
         status = MASTERNODE_SYNC_IN_PROCESS;
+	     notCapableReason = "Sync in progress. Must wait until sync is complete to start masternode.";
         LogPrintf("CActiveMasternode::ManageStatus() - Sync in progress. Must wait until sync is complete to start masternode.\n");
         return;
     }
@@ -82,7 +83,7 @@ void CActiveMasternode::ManageStatus()
             LogPrintf("CActiveMasternode::ManageStatus() - Is capable masternode!\n");
 
             status = MASTERNODE_IS_CAPABLE;
-            notCapableReason = "";
+ 		notCapableReason = "Successfully started masternode.";
 
             pwalletMain->LockCoin(vin.prevout);
 
@@ -106,7 +107,7 @@ void CActiveMasternode::ManageStatus()
 
             return;
         } else {
-            notCapableReason = "Could not find suitable coins!";
+ 	notCapableReason = "Could not find suitable coins! Start masternode in local wallet, in Masternode tab.";
         	LogPrintf("CActiveMasternode::ManageStatus() - Could not find suitable coins!\n");
         }
     }
@@ -475,7 +476,8 @@ bool CActiveMasternode::EnableHotColdMasterNode(CTxIn& newVin, CService& newServ
 
     status = MASTERNODE_REMOTELY_ENABLED;
     notCapableReason = "MASTERNODE STARTED REMOTELY";
-
+	notCapableReason = "Successfully started masternode.";
+	
     //The values below are needed for signing dseep messages going forward
     this->vin = newVin;
     this->service = newService;
